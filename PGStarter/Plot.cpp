@@ -66,9 +66,8 @@ void failQuery(
 Plot::Plot(std::string name, PSQLInterface& db, bool own):
   id(db.Quote(std::move(name))), db(db), own_(own)
 {
-  if (own_
-      && !query1(concat("select true result from plots where plot = '", id, '\''))
-          .Has("result"))
+  if (!query1(concat("select true result from plots where plot = '", id, '\''))
+       .Has("result"))
     // TODO: use "on conflict do nothing" when a more recent version of
     // PostgreSQL is available
     query0(concat("insert into plots (plot) values ('", id, "') "));
