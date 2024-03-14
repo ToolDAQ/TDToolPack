@@ -180,7 +180,13 @@ std::string Plot::getString(const std::string& field) const {
 void Plot::setString(const std::string& field, const std::string& value) {
   query0(
       concat(
-        "update plots set ", field, " = ", value, " where plot = '", id, '\''
+        "update plots set ",
+        field,
+        " = '",
+        db.Quote(value),
+        "' where plot = '",
+        id,
+        '\''
       )
   );
 };
